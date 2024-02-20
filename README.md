@@ -85,4 +85,17 @@ body: sequence of bytes
 
 # Storage
 
+A database is just a server. It's a server that stores data. Your computer itself can be a database server.
+
+If a power outage happen and database is back, will data be there? Well, not always, and it is an incorrect assumption to think that it will be there.
+
+This leads to two fundamental concepts in databases:
+
+- Disk
+- Memory
+
+Writing data to disk guarantees that the data will be there even if the power goes out. But writing to disk is slow. Reading from disk is also slow.
+
+Writing to memory is fast. Reading from memory is also fast. But memory is volatile. If the power goes out, the data is lost.
+
 # Latency and Throughput
