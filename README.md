@@ -99,3 +99,21 @@ Writing data to disk guarantees that the data will be there even if the power go
 Writing to memory is fast. Reading from memory is also fast. But memory is volatile. If the power goes out, the data is lost.
 
 # Latency and Throughput
+
+## Latency
+
+How long it takes for data to travel from one point to another e.g. how long it takes for a request to travel from the client to the server.
+
+Reading 1MB sequentially from memory takes about 250 microseconds. Reading 1MB sequentially from SSD takes about 1 millisecond which is 4 times slower than memory aka 1000 microseconds.
+
+1 MB over 1 Gbps link takes about 10 000 microseconds.
+
+Packet round trip time from California to Netherlands and back takes about 150 milliseconds aka 150 000 microseconds.
+
+Video games would want to have low latency. They want to have a fast response time. Lag in games is a result of high latency.
+
+## Throughput
+
+How much data can be transferred from one point to another in a given amount of time e.g. how many requests can be processed per second.
+
+This is measured in bits per second. 1 Gbps link can transfer 1 billion bits per second.
