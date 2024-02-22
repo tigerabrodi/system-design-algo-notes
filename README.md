@@ -117,3 +117,39 @@ Video games would want to have low latency. They want to have a fast response ti
 How much data can be transferred from one point to another in a given amount of time e.g. how many requests can be processed per second.
 
 This is measured in bits per second. 1 Gbps link can transfer 1 billion bits per second.
+
+# Availability
+
+Availability: How much time is the system operational?
+
+If you purchased a membership on a platform, you expect it to be available 24/7. If it's not, you're not getting your money's worth, and the business itself is losing money.
+
+## High Availability
+
+Some systems require stronger availability guarantees. For example, a hospital's database. If the database goes down, the hospital can't access patient records. This can be life-threatening. Another example is a plane's control system. If the control system goes down, the plane can crash.
+
+## Nines
+
+Availability is often measured in nines. For example, 99.9% availability means that the system is operational 99.9% of the time. This means that the system can be down for 8.76 hours per year.
+
+This is called, two nones, three nines, four nines, five nines, etc. Those translate into downtime per year, month, week and per day.
+
+## SLA
+
+Service Level Agreement. It's a contract between a service provider and a customer. It defines the level of service that the customer should expect. SLAs often include availability guarantees. SLAs are made of multiple SLOs.
+
+## SLO
+
+SLO and SLA are often used interchangeably, however, they are different. SLO stands for Service Level Objective. It's a target value for a service level. It's a part of the SLA.
+
+## How to achieve high availability?
+
+One important thing is not having a single point of failure. If a single component goes down, the entire system goes down. For example, if a single server goes down, the entire system goes down. This is a single point of failure.
+
+To counter this, redundancy is used. Redundancy means having multiple components that can do the same thing. For example, having multiple servers that can serve the same data. Though in this case we'd need a load balancer to distribute the load between the servers.
+
+But wait, now the load balancer is a single point of failure? Yes, it is. So, we need to have multiple load balancers.
+
+This type of redundancy is called passive redundancy. It's called passive because the redundant components are not doing anything. They're just sitting there, waiting for the main component to fail.
+
+Active redundancy is when the redundant components are doing something. For example, having multiple servers that can serve the same data and are all serving the data at the same time.
