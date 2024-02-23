@@ -218,3 +218,18 @@ There are multiple ways to do cache eviction. The most common way is LRU (Least 
 LRU evicts the data that was accessed the least recently. It's called LRU because it evicts the data that was accessed the least recently.
 
 LRU eviction is a simple way to do cache eviction. It's easy to implement and it works well.
+
+# Proxies
+
+A forward proxy is a server that sits between the client and the server. The client sends requests to the proxy, and the proxy forwards the requests to the server. The server sends responses to the proxy, and the proxy forwards the responses to the client. The forard proxy acts on behalf of the client. This is useful for e.g. privacy and security, serving as a way to hide the client's IP address.
+
+A reverse proxy is a server that sits between the client and the server. The client sends requests to the reverse proxy, and the reverse proxy forwards the requests to the server. The server sends responses to the reverse proxy, and the reverse proxy forwards the responses to the client. The reverse proxy acts on behalf of the server. This is useful for e.g. load balancing, caching, security, etc.
+
+Forward proxy -> Acts on behalf of the client.
+Reverse proxy -> Acts on behalf of the server.
+
+They serve different roles.
+
+Reverse proxy is often used for load balancing. Load balancing is a technique that distributes the load between multiple servers. This is useful for improving the throughput of a system.
+
+Forward proxy is often used for caching. Caching is a technique that stores data in memory. This is useful for improving the response time of a system. Forward proxy is also famously used for VPNs.
