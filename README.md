@@ -167,3 +167,54 @@ Example where its useful: Client makes a lot of requests to the server. The serv
 Static files are often cached. For example, images, CSS, JavaScript, etc. These files don't change often. So, there's no need to request them from the server every time. They can be cached in the client's browser.
 
 At the server level, you can cache the results of a database query. If the same query is made again, the server can just return the cached result. This speeds up the response time of the server.
+
+## write through cache
+
+When you write to the cache, you also write to the database. This ensures that the cache and the database are always in sync.
+
+Pros:
+
+- Data is always in sync.
+- If the cache goes down, the data is still in the database.
+
+Cons:
+
+- Writing to the database is slow.
+- If the database goes down, the cache is useless.
+
+## Write back cache
+
+When you write to the cache, you don't write to the database. You just write to the cache. The cache is responsible for writing to the database.
+
+Pros:
+
+- Faster than write through cache.
+- If the database goes down, the data is still in the cache.
+
+Cons:
+
+- If the cache goes down, the data is lost.
+
+## Consistency
+
+Caching can cause consistency issues. For example, if the server caches the results of a database query, and the database is updated, the cache is now out of date.
+
+You have to ask yourself, how important is consistency? For example, if you're building a social media platform, consistency is not that important. If a user posts a photo and it takes a few seconds for the photo to show up, it's not a big deal. But if you're building a banking system, consistency is very important. If a user transfers money from one account to another, the money should be transferred immediately.
+
+## General rules
+
+- Cache data that doesn't change often.
+- Cache data that's accessed often.
+- Cache data that's expensive to compute.
+- Cache data that's far away.
+- Cache data that's large.
+
+## Cache eviction
+
+When the cache is full, and you want to add new data to the cache, you have to remove some data from the cache. This is called cache eviction.
+
+There are multiple ways to do cache eviction. The most common way is LRU (Least Recently Used).
+
+LRU evicts the data that was accessed the least recently. It's called LRU because it evicts the data that was accessed the least recently.
+
+LRU eviction is a simple way to do cache eviction. It's easy to implement and it works well.
