@@ -153,3 +153,17 @@ But wait, now the load balancer is a single point of failure? Yes, it is. So, we
 This type of redundancy is called passive redundancy. It's called passive because the redundant components are not doing anything. They're just sitting there, waiting for the main component to fail.
 
 Active redundancy is when the redundant components are doing something. For example, having multiple servers that can serve the same data and are all serving the data at the same time.
+
+# Caching
+
+Caching is a technique that stores data in memory. It's a way to speed up the response time of a request.
+
+Caching is used to improved latency of a system.
+
+You can do caching at multiple levels. Client, Server, DB, etc.
+
+Example where its useful: Client makes a lot of requests to the server. The server makes a lot of requests to the database. If the server caches the data, it doesn't have to make requests to the database. This speeds up the response time of the server. Or you could cache between client and server.
+
+Static files are often cached. For example, images, CSS, JavaScript, etc. These files don't change often. So, there's no need to request them from the server every time. They can be cached in the client's browser.
+
+At the server level, you can cache the results of a database query. If the same query is made again, the server can just return the cached result. This speeds up the response time of the server.
