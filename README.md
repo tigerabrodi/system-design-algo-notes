@@ -251,3 +251,41 @@ When adding a new server, you configure the load balancer to distribute the load
 Load balancers can distribute the load in multiple ways. For example, round robin, least connections, IP hash, etc.
 
 What happens if the load balancer itself becomes overloaded? You can add more load balancers. You can also use DNS load balancing. This is a technique that distributes the load between multiple load balancers.
+
+# Hashing
+
+Hashing is a technique that maps data to a fixed size. It's a way to convert data into a fixed size.
+
+For example, 4 clients and 4 servers. Load balancer uses hashing to distribute the load between the servers. It hashes the client's IP address and maps it to a server. This lets us take advantage of caching, we'd know which server to go to for a specific client. Each server would have an in memory cache. If the client makes a request to the server, the server would check the cache first. If the data is in the cache, it would return the data. If the data is not in the cache, it would go to the database and store the data in the cache.
+
+If we add a new server, we'd have to rehash and remod the clients to the servers. This is why this approach is a problem. Because if a server goes down or a new server is added, we'd have to remod the clients to the servers. The in memory caches we had in each server would be useless.
+
+This is where algorithms like consistent hashing come in.
+
+## Consistent Hashing
+
+First, we have a circle. The circle represents the hash space. Each server is represented by a point on the circle. Each client would be hashed to a point on the circle. The client would be mapped to the server that's closest to it in the clockwise direction.
+
+So each client would look at the circle and find the server that's closest to it in the clockwise direction. This is the server that the client would be mapped to.
+
+If a server goes down, the clients that were mapped to that server would be remapped to the next server in the clockwise direction.
+
+If a new server is added, the clients that were mapped to the next server in the clockwise direction would be remapped to the new server.
+
+Let's say you wanna even more evenly want to distributed the load between the servers. You can add virtual nodes. Each server would be represented by multiple points on the circle. This would make the circle more evenly distributed. This is good because it would make the load more evenly distributed between the servers.
+
+For example, if you've multiple servers, but Server A is much more powerful than Server B, you can add more virtual nodes for server A. This would give server A more points on the circle, and thus more load.
+
+## Rendezvous Hashing
+
+Rendezvous hashing is different from consistent hashing. In consistent hashing, the client is mapped to the server that's closest to it in the clockwise direction. In rendezvous hashing, the client is mapped to the server that has the highest score.
+
+A server's score is calculated by hashing the server's name and the client's name. The server with the highest score is the server that the client is mapped to.
+
+Every client would calculate the score for every server and choose the server with the highest score.
+
+## When to choose a hashing strategy?
+
+- Consistent hashing: When you want to evenly distribute the load between the servers.
+- Rendezvous hashing: When you want to choose the server with the highest score.
+- When servers have an in memory cache and you want to take advantage of caching.
