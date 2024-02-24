@@ -233,3 +233,21 @@ They serve different roles.
 Reverse proxy is often used for load balancing. Load balancing is a technique that distributes the load between multiple servers. This is useful for improving the throughput of a system.
 
 Forward proxy is often used for caching. Caching is a technique that stores data in memory. This is useful for improving the response time of a system. Forward proxy is also famously used for VPNs.
+
+# Load Balancers
+
+Let's say we start with a client and server. Multiple clients now make requests to the server. The server can't handle all the requests. It's overloaded.
+
+We need to scale, vertically or horizontally. Horizonal scaling is adding more servers. Vertical scaling is adding more resources to the server.
+
+If we add more servers (horizontal scaling), we need a way to distribute the load between the servers. This is where load balancers come in.
+
+Load Balancers sit between the client and the server. The client sends requests to the load balancer, and the load balancer looks at all the servers and decides which server to send the request to. The server sends responses to the load balancer, and the load balancer forwards the responses to the client.
+
+You think of load balancers as reverse proxies. They act on behalf of the server. They distribute the load between the servers.
+
+When adding a new server, you configure the load balancer to distribute the load between the new server and the old servers.
+
+Load balancers can distribute the load in multiple ways. For example, round robin, least connections, IP hash, etc.
+
+What happens if the load balancer itself becomes overloaded? You can add more load balancers. You can also use DNS load balancing. This is a technique that distributes the load between multiple load balancers.
