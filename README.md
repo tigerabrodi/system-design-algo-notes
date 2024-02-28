@@ -289,3 +289,131 @@ Every client would calculate the score for every server and choose the server wi
 - Consistent hashing: When you want to evenly distribute the load between the servers.
 - Rendezvous hashing: When you want to choose the server with the highest score.
 - When servers have an in memory cache and you want to take advantage of caching.
+
+# Relational Databases
+
+Relational databases are databases that store data in tables. Each table has rows and columns. Each row is a record. Each column is a field. A record is a collection of fields. A field is a piece of data.
+
+For example:
+
+```
++----+-------+-----+
+| id | name  | age |
++----+-------+-----+
+| 1  | John  | 25  |
+| 2  | Alice | 30  |
+| 3  | Bob   | 35  |
++----+-------+-----+
+```
+
+Relational Databases are very structured. Each table has a schema. A schema is a set of rules that define the structure of the table. For example, the schema of the table above is:
+
+```
+id: integer
+name: string
+age: integer
+```
+
+The schema defines the structure of the table. It defines the data types of the fields. It also defines the relationships between the fields.
+
+For example, when it comes to relationships, you can have a one-to-one relationship, a one-to-many relationship, or a many-to-many relationship.
+
+Relational databses imposes strict rules on the data. For example, you can't have a record in a table that doesn't have a value for a field. You can't have a record in a table that has a value for a field that's not in the schema.
+
+## SQL
+
+SQL stands for Structured Query Language. It's a language that's used to interact with relational databases. It's a language that's used to create, read, update, and delete data in a relational database.
+
+SQL is a declarative language. It means that you tell the database what you want to do, and the database figures out how to do it.
+
+When dealing with relational databases, you can perform powerful SQL queries. For example, you can perform joins, unions, intersections, etc.
+
+## ACID
+
+ACID stands for Atomicity, Consistency, Isolation, Durability. It's a set of properties that guarantee that database transactions are processed reliably.
+
+- Atomicity: A transaction is atomic if it's either completely processed or not processed at all.
+- Consistency: A transaction is consistent if it takes the database from one consistent state to another consistent state.
+- Isolation: A transaction is isolated if it's processed independently of other transactions.
+- Durability: A transaction is durable if its effects are permanent.
+
+If memorizing ACID is hard, a way to think about it is the naive way of thinking. When you say, I'll make transaction from bank account A to bank account B, you expect it to either happen or not happen, you don't care about the underlying logic. Similar to how you expect it to be permanent after it happens.
+
+This naive way of how we've been thinking about DB operations is what ACID is about after all.
+
+## Database Index
+
+What if you have the problem of having to search through a large table? It's slow. This is where database indexes come in.
+
+You can instead for example, turn O of n into O of log n. This is done by creating an index. An index is a data structure that's used to speed up the search of a table.
+
+You can imagine it as a book index. You look up a word in the index, and the index tells you which page the word is on. This is much faster than looking through the entire book.
+
+However, indexes should be used with caution. They can speed up the search of a table, but they can also slow down the write of a table. This is because when you write to a table, you also have to write to the index. Why do you have to write to the index? Because the index has to be updated. For example, if you add a record to a table, you also have to add a record to the index.
+
+So, when is it befitting to add an index?
+
+- When you have a large table and you want to speed up the search of the table.
+- When you perform JOIN operations on a table, these are operations that combine records from two tables. For example, if you have a table of employees and a table of departments, and you want to find the employees that work in a specific department, you'd perform a JOIN operation. This is a slow operation. You can speed it up by adding an index to the table. With an index, the database can look up the records in the table much faster.
+- When you have a table that's sorted. For example, if you have a table of employees and you want to find the employees that are older than 30, you can speed up the search by adding an index to the table. With an index, the database can look up the records in the table much faster.
+
+## SQL Indexes
+
+How to create a database index in SQL?
+
+```sql
+CREATE INDEX index_name ON table_name (column_name);
+```
+
+This creates an index on the column_name of the table_name.
+
+Let's look at another example:
+
+```sql
+CREATE INDEX name_index ON employees (name);
+```
+
+Here, this would help if you're searching for employees by name. If you want to find all the employees that have a name that starts with "A", you can use the following query:
+
+```sql
+SELECT * FROM employees WHERE name LIKE 'A%';
+```
+
+This would be much faster than searching through the entire table.
+
+What about a JOIN index?
+
+```sql
+CREATE INDEX department_index ON employees (department_id);
+```
+
+This would help if you're performing JOIN operations on the employees table and the departments table. For example, if you want to find all the employees that work in a specific department, you can use the following query:
+
+```sql
+SELECT * FROM employees JOIN departments ON employees.department_id = departments.id WHERE departments.name = 'Engineering';
+```
+
+This query tells us that we want to find all the employees that work in the Engineering department. This is a slow operation. You can speed it up by adding an index to the employees table.
+
+## Transactions in SQL
+
+An example of a transaction in SQL:
+
+```sql
+BEGIN TRANSACTION;
+UPDATE employees SET salary = salary + 1000 WHERE age > 30;
+UPDATE employees SET salary = salary + 2000 WHERE age > 40;
+COMMIT;
+```
+
+In this example, we're updating the salary of employees. We're updating the salary of employees that are older than 30 and 40. This is a transaction. If we don't commit the transaction, the changes won't be permanent.
+
+While the transaction is running, if other changes in the database are made, they won't be visible to the transaction. This is called isolation. It's a property of transactions.
+
+Consistency in this case would be that the changes are consistent. For example, if the transaction fails, the changes are rolled back. If the transaction succeeds, the changes are permanent.
+
+## Strong vs Eventual Consistency
+
+Strong consistency: If a transaction is processed, the changes are immediately visible to other transactions. This is called strong consistency. It's a property of transactions.
+
+Eventual consistency is another consistency model. Unlike strong consistency, eventual consistency doesn't guarantee that the changes are immediately visible to other transactions. It guarantees that the changes are eventually visible to other transactions.
